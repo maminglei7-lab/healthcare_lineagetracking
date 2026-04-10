@@ -1,0 +1,62 @@
+[
+  {
+    "scenario": "1. Single-hop Factual",
+    "type": "Patient → Admission → Diagnosis",
+    "question": "What diagnoses does patient 10014729 have?",
+    "cypher": "MATCH (p:Patient {subjectId: 10014729})-[:HAD_ADMISSION]->(a)-[:HAS_DIAGNOSIS]->(d)\nRETURN d.icdTitle LIMIT 20;",
+    "record_count": 20,
+    "time": 3.0,
+    "passed": true,
+    "answer": "Patient 10014729 has the following diagnoses:\n1. Disruption of external operation (surgical) wound\n2. Acute post-thoracotomy pain\n3. Surgical operation with complications related to implant materials\n4. Personal history of Methicillin resistant Staphylococcus aureus\n5. Postoperative infections\n6. Accidents occurring in a residential institution\n7. Empyema without fistula\n8. Cellulitis and abscess of trunk\n9. Migraine with aura\n10. Personal history of surgery to heart and great vessels\n11. Street and highway accidents\n12. Asthma\n13. Mechanical complication of nervous system device\n14. Injury to thoracic aorta\n15. Motor vehicle traffic accident involving collision with motor vehicle injuring driver\n\nReasoning path: The query matched the patient with ID 10014729, then traversed to the diagnoses associated with the patient's admissions, returning the specific ICD titles for each diagnosis."
+  },
+  {
+    "scenario": "2. Multi-hop Relational",
+    "type": "ICD_Category(angina) → Diagnosis → Admission → Medication",
+    "question": "What medications were prescribed for patients with angina?",
+    "cypher": "MATCH (p:Patient)-[:HAD_ADMISSION]->(a:Admission)-[:HAS_DIAGNOSIS]->(d:Diagnosis)-[:BELONGS_TO_CATEGORY]->(c:ICD_Category)\nWHERE toLower(c.title) CONTAINS toLower('angina')\nMATCH (a)-[:HAS_PRESCRIPTION]->(m:Medication)\nRETURN DISTINCT m.drugName\nLIMIT 20",
+    "record_count": 20,
+    "time": 2.81,
+    "passed": true,
+    "answer": "Based on the query results, the medications prescribed for patients with angina include:\n1. Aspirin\n2. Atenolol\n\nThese medications were specifically prescribed for patients with angina based on the data retrieved from the database query. Other medications listed in the results may not be directly related to treating angina."
+  },
+  {
+    "scenario": "3. Aggregation + Condition",
+    "type": "Patient → Admission → LabTest (flag=abnormal) → COUNT",
+    "question": "How many abnormal lab results does patient 10014729 have?",
+    "cypher": "MATCH (p:Patient {subjectId: 10014729})-[:HAD_ADMISSION]->(a)-[r:HAS_LAB_RESULT]-()\nWHERE r.flag = 'abnormal'\nRETURN COUNT(r) AS abnormalLabResults;",
+    "record_count": 1,
+    "time": 1.64,
+    "passed": true,
+    "answer": "Patient 10014729 has 159 abnormal lab results. The query searched for the patient's admission records and then identified lab results marked as abnormal, resulting in a count of 159 abnormal lab results for patient 10014729."
+  },
+  {
+    "scenario": "4. Backward Tracing",
+    "type": "Medication(Aspirin) → Admission → Patient → Aggregate",
+    "question": "What are the common characteristics of patients who were prescribed Aspirin? Include their average age, gender distribution, and most common diagnoses.",
+    "cypher": "MATCH (p:Patient)-[:HAD_ADMISSION]->(a:Admission)-[:HAS_PRESCRIPTION]->(m:Medication)\nWHERE m.drugName CONTAINS 'Aspirin'\nWITH p, a, m\nMATCH (a)-[:HAS_DIAGNOSIS]->(d:Diagnosis)\nRETURN AVG(p.anchorAge) AS averageAge, \n       COUNT(DISTINCT p.gender) AS genderCount, \n       COUNT(DISTINCT d.icdTitle) AS diagnosisCount, \n       COLLECT(DISTINCT p.gender) AS genders, \n       COLLECT(DISTINCT d.icdTitle) AS commonDiagnoses\nLIMIT 1",
+    "record_count": 1,
+    "time": 3.21,
+    "passed": true,
+    "answer": "The common characteristics of patients prescribed Aspirin are as follows:\n- Average age: 65.49 years\n- Gender distribution: Both male and female patients were prescribed Aspirin\n- Most common diagnoses: The most common diagnoses among these patients include coronary atherosclerosis, hyperlipidemia, diabetes, atrial fibrillation, obesity, hypertension, and urinary tract infection.\n\nThe query results show that patients prescribed Aspirin have an average age of 65.49 years, with both male and female patients represented. The most common diagnoses among these patients cover a range of cardiovascular, metabolic, and other health conditions."
+  },
+  {
+    "scenario": "5. Complex Comprehensive",
+    "type": "ICD_Category(heart failure) → Diagnosis → Admission → LabTest(abnormal) → Aggregate",
+    "question": "What are the most common abnormal lab indicators for heart failure patients?",
+    "cypher": "MATCH (p:Patient)-[:HAD_ADMISSION]->(a:Admission)-[:HAS_DIAGNOSIS]->(:Diagnosis)-[:BELONGS_TO_CATEGORY]->(c:ICD_Category)\nWHERE toLower(c.title) CONTAINS toLower('heart failure')\nMATCH (a)-[r:HAS_LAB_RESULT]->(l:LabTest)\nWHERE r.flag = 'abnormal'\nRETURN l.label, COUNT(*) AS abnormalCount\nORDER BY abnormalCount DESC\nLIMIT 5",
+    "record_count": 5,
+    "time": 3.26,
+    "passed": true,
+    "answer": "The most common abnormal lab indicators for heart failure patients are:\n1. Glucose with 869 occurrences\n2. Hemoglobin with 832 occurrences\n3. Hematocrit with 807 occurrences\n4. Red Blood Cells with 775 occurrences\n5. Urea Nitrogen with 741 occurrences.\n\nThese results were obtained by querying patients with a diagnosis related to heart failure and identifying abnormal lab results associated with them."
+  },
+  {
+    "scenario": "6. Cross-category Aggregation",
+    "type": "ICD_Category → Diagnosis → Admission → Patient → GROUP BY age",
+    "question": "What is the age distribution of patients by their top diagnosis categories?",
+    "cypher": "MATCH (p:Patient)-[:HAD_ADMISSION]->(a:Admission)-[:HAS_DIAGNOSIS {seqNum: 1}]->(d:Diagnosis)-[:BELONGS_TO_CATEGORY]->(c:ICD_Category)\nWITH p, c, a\nRETURN c.title AS diagnosisCategory, AVG(p.anchorAge) AS averageAge, COUNT(DISTINCT p) AS patientCount\nORDER BY patientCount DESC\nLIMIT 10;",
+    "record_count": 10,
+    "time": 3.79,
+    "passed": true,
+    "answer": "The age distribution of patients by their top diagnosis categories is as follows:\n\n1. Unspecified septicemia: Average age of 63.6 with 8 patients.\n2. Coronary atherosclerosis of nonautologous biological bypass graft: Average age of 69.125 with 8 patients.\n3. Chronic ischemic heart disease: Average age of 51.83 with 5 patients.\n4. Combined systolic and diastolic heart failure, unspecified: Average age of 62.33 with 5 patients.\n5. Endocarditis in diseases classified elsewhere: Average age of 57.17 with 5 patients.\n6. Respiratory failure, not elsewhere classified: Average age of 61.4 with 5 patients.\n7. Ventricular fibrillation: Average age of 66.75 with 4 patients.\n8. Acute myocardial infarction: Average age of 69.5 with 4 patients.\n9. Other sepsis: Average age of 62.5 with 4 patients.\n10. Acute kidney failure: Average age of 51.8 with 4 patients.\n\nIf there are no results for specific diagnosis categories, it could be due to a lack of patients with those diagnoses in the database."
+  }
+]

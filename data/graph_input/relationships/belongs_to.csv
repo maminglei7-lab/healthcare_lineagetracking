@@ -1,0 +1,13 @@
+:START_ID,:END_ID,:TYPE
+f_admissions_deathtime,tbl_admissions,BELONGS_TO
+f_admissions_edouttime,tbl_admissions,BELONGS_TO
+f_admissions_edregtime,tbl_admissions,BELONGS_TO
+f_admissions_language,tbl_admissions,BELONGS_TO
+f_admissions_marital_status,tbl_admissions,BELONGS_TO
+f_diagnoses_icd_diagnosis_id,tbl_diagnoses_icd,BELONGS_TO
+f_diagnoses_icd_icd_code,tbl_diagnoses_icd,BELONGS_TO
+f_diagnoses_icd_icd_version,tbl_diagnoses_icd,BELONGS_TO
+f_labevents_flag,tbl_labevents,BELONGS_TO
+f_labevents_hadm_id,tbl_labevents,BELONGS_TO
+f_labevents_valuenum,tbl_labevents,BELONGS_TO
+f_patients_dod,tbl_patients,BELONGS_TO

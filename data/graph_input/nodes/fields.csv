@@ -1,0 +1,13 @@
+fieldId:ID,fieldName,tableName,dataType,isSource,description,:LABEL
+f_admissions_deathtime,deathtime,admissions,,true,,Field
+f_admissions_edouttime,edouttime,admissions,,true,,Field
+f_admissions_edregtime,edregtime,admissions,,true,,Field
+f_admissions_language,language,admissions,,true,,Field
+f_admissions_marital_status,marital_status,admissions,,true,,Field
+f_diagnoses_icd_diagnosis_id,diagnosis_id,diagnoses_icd,,false,,Field
+f_diagnoses_icd_icd_code,icd_code,diagnoses_icd,,true,,Field
+f_diagnoses_icd_icd_version,icd_version,diagnoses_icd,,true,,Field
+f_labevents_flag,flag,labevents,,true,,Field
+f_labevents_hadm_id,hadm_id,labevents,,true,,Field
+f_labevents_valuenum,valuenum,labevents,,true,,Field
+f_patients_dod,dod,patients,,true,,Field

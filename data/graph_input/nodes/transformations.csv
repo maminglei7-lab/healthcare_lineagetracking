@@ -1,0 +1,11 @@
+transformationId:ID,transformType,logic,timestamp,scriptRef,:LABEL
+t_001,IMPUTATION,Fill missing dod values with 'unknown' to indicate no recorded death date,2026-02-25 14:17:55,transform.py,Transformation
+t_002,IMPUTATION,Fill missing deathtime with 'unknown',2026-02-25 14:17:55,transform.py,Transformation
+t_003,IMPUTATION,Fill missing edregtime with 'unknown',2026-02-25 14:17:56,transform.py,Transformation
+t_004,IMPUTATION,Fill missing edouttime with 'unknown',2026-02-25 14:17:56,transform.py,Transformation
+t_005,STANDARDIZATION,Replace '?' values in language field with 'unknown',2026-02-25 14:17:56,transform.py,Transformation
+t_006,IMPUTATION,Fill missing marital_status values with 'unknown',2026-02-25 14:17:56,transform.py,Transformation
+t_007,STANDARDIZATION,Generate diagnosis_id = icd_code + '_v' + icd_version to avoid ICD-9/10 code collisions,2026-02-25 14:17:56,transform.py,Transformation
+t_008,IMPUTATION,Fill missing valuenum with per-itemid median; fallback to global median if entire group is null,2026-02-25 14:17:56,transform.py,Transformation
+t_009,IMPUTATION,Fill missing flag values with 'normal' to indicate no abnormality recorded,2026-02-25 14:17:56,transform.py,Transformation
+t_010,IMPUTATION,Fill missing hadm_id with -1 to indicate lab result not linked to any admission,2026-02-25 14:17:56,transform.py,Transformation

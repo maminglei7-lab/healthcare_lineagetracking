@@ -1,0 +1,110 @@
+{
+  "lineage_records": [
+    {
+      "transformation_id": "t_001",
+      "transform_type": "STANDARDIZATION",
+      "source_fields": [
+        "f_admissions_language"
+      ],
+      "target_fields": [
+        "f_admissions_language"
+      ],
+      "logic": "Replace '?' placeholder in language with 'UNKNOWN'",
+      "script_ref": "transform.py",
+      "timestamp": "2026-03-03 18:48:35",
+      "records_affected": 275,
+      "records_rejected": 0
+    },
+    {
+      "transformation_id": "t_002",
+      "transform_type": "IMPUTATION",
+      "source_fields": [
+        "f_admissions_marital_status"
+      ],
+      "target_fields": [
+        "f_admissions_marital_status"
+      ],
+      "logic": "Fill null marital_status with 'UNKNOWN'",
+      "script_ref": "transform.py",
+      "timestamp": "2026-03-03 18:48:35",
+      "records_affected": 275,
+      "records_rejected": 0
+    },
+    {
+      "transformation_id": "t_003",
+      "transform_type": "IMPUTATION",
+      "source_fields": [
+        "f_admissions_discharge_location"
+      ],
+      "target_fields": [
+        "f_admissions_discharge_location"
+      ],
+      "logic": "Fill null discharge_location with 'UNKNOWN'",
+      "script_ref": "transform.py",
+      "timestamp": "2026-03-03 18:48:35",
+      "records_affected": 275,
+      "records_rejected": 0
+    },
+    {
+      "transformation_id": "t_004",
+      "transform_type": "STANDARDIZATION",
+      "source_fields": [
+        "f_diagnoses_icd_icd_code",
+        "f_diagnoses_icd_icd_version"
+      ],
+      "target_fields": [
+        "f_diagnoses_icd_diagnosis_id"
+      ],
+      "logic": "Generate diagnosis_id = icd_code + '_v' + icd_version to avoid ICD-9/10 code collisions",
+      "script_ref": "transform.py",
+      "timestamp": "2026-03-03 18:48:35",
+      "records_affected": 4506,
+      "records_rejected": 0
+    },
+    {
+      "transformation_id": "t_005",
+      "transform_type": "IMPUTATION",
+      "source_fields": [
+        "f_labevents_flag"
+      ],
+      "target_fields": [
+        "f_labevents_flag"
+      ],
+      "logic": "Fill null flag with 'normal' — per MIMIC-IV docs, null means result within normal range",
+      "script_ref": "transform.py",
+      "timestamp": "2026-03-03 18:48:35",
+      "records_affected": 79307,
+      "records_rejected": 0
+    },
+    {
+      "transformation_id": "t_006",
+      "transform_type": "STANDARDIZATION",
+      "source_fields": [
+        "f_prescriptions_drug"
+      ],
+      "target_fields": [
+        "f_prescriptions_drug"
+      ],
+      "logic": "Standardize drug names: strip whitespace and normalize casing",
+      "script_ref": "transform.py",
+      "timestamp": "2026-03-03 18:48:35",
+      "records_affected": 18087,
+      "records_rejected": 0
+    },
+    {
+      "transformation_id": "t_007",
+      "transform_type": "IMPUTATION",
+      "source_fields": [
+        "f_prescriptions_route"
+      ],
+      "target_fields": [
+        "f_prescriptions_route"
+      ],
+      "logic": "Fill null route with 'UNKNOWN'",
+      "script_ref": "transform.py",
+      "timestamp": "2026-03-03 18:48:35",
+      "records_affected": 18087,
+      "records_rejected": 0
+    }
+  ]
+}
