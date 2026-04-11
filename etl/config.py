@@ -13,7 +13,7 @@ MODE = "full"
 # ─────────────────────────────────────────────
 # Base Directories
 # ─────────────────────────────────────────────
-PROJECT_ROOT = r"D:\Desktop\DAMG 7374\healthcare_lineagetracking"
+PROJECT_ROOT = r"/Users/guangyiyang/Desktop/damg7374/final/healthcare_lineagetracking-guangyi"
 
 BASE_PATHS = {
     "demo": {
@@ -76,7 +76,7 @@ TABLE_DESCRIPTIONS = {
 # ─────────────────────────────────────────────
 NEO4J_URI      = "bolt://127.0.0.1:7687"
 NEO4J_USERNAME = "neo4j"
-NEO4J_PASSWORD = "m19980131"
+NEO4J_PASSWORD = "jsbbgnmm!"
 NEO4J_DATABASE = "neo4j"
 
 # ─────────────────────────────────────────────

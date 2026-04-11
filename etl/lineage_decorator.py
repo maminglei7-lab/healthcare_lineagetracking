@@ -3,7 +3,7 @@ import json
 import os
 from datetime import datetime
 
-LINEAGE_OUTPUT_PATH = r"D:\Desktop\DAMG 7374\healthcare_lineagetracking\lineage\lineage.json"
+LINEAGE_OUTPUT_PATH = "/Users/guangyiyang/Desktop/damg7374/final/healthcare_lineagetracking-guangyi/lineage/lineage.json"
 
 TRANSFORM_TYPE_MAP = {
     "fill_missing":        "IMPUTATION",
