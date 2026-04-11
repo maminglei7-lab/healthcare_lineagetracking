@@ -1,7 +1,0 @@
-tableId:ID,tableName,description,:LABEL
-tbl_patients,patients,Patient demographic information,Table
-tbl_admissions,admissions,Hospital admission records,Table
-tbl_diagnoses_icd,diagnoses_icd,ICD diagnosis codes per admission,Table
-tbl_labevents,labevents,Laboratory test results,Table
-tbl_d_icd_diagnoses,d_icd_diagnoses,ICD diagnosis code dictionary,Table
-tbl_d_labitems,d_labitems,Lab item dictionary,Table

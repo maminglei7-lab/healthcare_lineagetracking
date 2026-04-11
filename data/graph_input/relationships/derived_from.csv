@@ -1,3 +1,0 @@
-:START_ID,:END_ID,:TYPE,derivationType
-f_diagnoses_icd_diagnosis_id,f_diagnoses_icd_icd_code,DERIVED_FROM,STANDARDIZATION
-f_diagnoses_icd_diagnosis_id,f_diagnoses_icd_icd_version,DERIVED_FROM,STANDARDIZATION
