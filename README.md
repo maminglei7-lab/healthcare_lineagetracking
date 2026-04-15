@@ -42,7 +42,7 @@ Layer 1 is the clinical entity graph — Patient, Admission, Diagnosis, LabTest,
 graph TD
     A[User Natural Language Question] --> B
 
-    subgraph Stage1 [Stage 1 — Intent Analysis & Query Planning]
+    subgraph Stage1 [Stage 1 — Intent Analysis and Query Planning]
         B[Query Decomposition\nSINGLE or COMPOUND?] -->|Compound| C[Split into Sub-questions]
         B -->|Single| D[Cypher Generation via LLM]
         C --> D
@@ -210,13 +210,3 @@ Layer 1 is the ETL quality checks: 47 assertions that run after every ETL job (a
 ## Reference
 
 > Ke, et al. **MedGraphRAG: A Medical Graph RAG System.** ACL 2025. [arXiv:2408.04187](https://arxiv.org/abs/2408.04187)
-
----
-
-## Team
-
-Minglei — ETL pipeline, data lineage, overall architecture  
-Yining Cai — Neo4j knowledge graph implementation  
-Guangyi Yang — LLM interface, Streamlit frontend, Graph RAG pipeline
-
-DAMG 7374 · LLM's with Knowledge Graph DB · Northeastern University · Spring 2026
