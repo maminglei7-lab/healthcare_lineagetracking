@@ -7,8 +7,8 @@ A three-person team project that builds a comprehensive system to track how heal
 | Member | Responsibility |
 |--------|---------------|
 | Minglei | ETL Pipeline |
-| YiNing | Neo4j Knowledge Graph |
-| GuangYi | LLM Interface |
+| Yining | Neo4j Knowledge Graph |
+| Guangyi | LLM Interface |
 
 ## Project Structure
 
